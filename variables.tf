@@ -10,7 +10,7 @@ variable "prefix" {
 variable "f5_ami_search_name" {
   description = "BIG-IP AMI name to search for"
   type        = string
-  default     = "F5 Networks BIGIP-14.* PAYG - Best 200Mbps - 20190817094829"
+  default     = "F5 Networks BIGIP-14.* PAYG - Best 200Mbps*"
 }
 
 variable "f5_instance_count" {
