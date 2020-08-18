@@ -4,10 +4,13 @@ variable "prefix" {
   default     = "terraform-aws-bigip-demo"
 }
 
+#
+# getting odd results in gov region:  aws ec2 describe-images --region us-gov-west-1 --filters 'Name=name,Values=F5 Networks BIGIP-14.* PAYG - Best 200Mbps*2019*' --profile f5-gov --output table
+#
 variable "f5_ami_search_name" {
   description = "BIG-IP AMI name to search for"
   type        = string
-  default     = "F5 Networks BIGIP-14.* PAYG - Best 200Mbps*"
+  default     = "F5 Networks BIGIP-14.* PAYG - Best 200Mbps - 20190817094829"
 }
 
 variable "f5_instance_count" {
