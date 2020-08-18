@@ -1,16 +1,16 @@
 #
 # Ensure Secret exists
 #
-data "aws_secretsmanager_secret" "password" {
+data aws_secretsmanager_secret password {
   name = var.aws_secretmanager_secret_id
 }
 
 #
 # Find BIG-IP AMI
 #
-data "aws_ami" "f5_ami" {
+data aws_ami f5_ami {
   most_recent = true
-  owners      = var.f5_owner_ids
+  owners      = [var.f5_owner_ids]
 
   filter {
     name   = "name"
@@ -21,7 +21,7 @@ data "aws_ami" "f5_ami" {
 # 
 # Create Management Network Interfaces
 #
-resource "aws_network_interface" "mgmt" {
+resource aws_network_interface mgmt {
   count           = length(var.vpc_mgmt_subnet_ids)
   subnet_id       = var.vpc_mgmt_subnet_ids[count.index]
   security_groups = var.mgmt_subnet_security_group_ids
@@ -30,7 +30,7 @@ resource "aws_network_interface" "mgmt" {
 #
 # add an elastic IP to the BIG-IP management interface
 #
-resource "aws_eip" "mgmt" {
+resource aws_eip mgmt {
   count             = var.mgmt_eip ? length(var.vpc_mgmt_subnet_ids) : 0
   network_interface = aws_network_interface.mgmt[count.index].id
   vpc               = true
@@ -39,7 +39,7 @@ resource "aws_eip" "mgmt" {
 # 
 # Create Public Network Interfaces
 #
-resource "aws_network_interface" "public" {
+resource aws_network_interface public {
   count             = length(var.vpc_public_subnet_ids)
   subnet_id         = var.vpc_public_subnet_ids[count.index]
   security_groups   = var.public_subnet_security_group_ids
@@ -49,7 +49,7 @@ resource "aws_network_interface" "public" {
 # 
 # Create Private Network Interfaces
 #
-resource "aws_network_interface" "private" {
+resource aws_network_interface private {
   count           = length(var.vpc_private_subnet_ids)
   subnet_id       = var.vpc_private_subnet_ids[count.index]
   security_groups = var.private_subnet_security_group_ids
@@ -58,7 +58,7 @@ resource "aws_network_interface" "private" {
 #
 # Deploy BIG-IP
 #
-resource "aws_instance" "f5_bigip" {
+resource aws_instance f5_bigip {
   # determine the number of BIG-IPs to deploy
   count                = var.f5_instance_count
   instance_type        = var.ec2_instance_type
