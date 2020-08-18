@@ -10,7 +10,7 @@ data aws_secretsmanager_secret password {
 #
 data aws_ami f5_ami {
   most_recent = true
-  owners      = [var.f5_owner_ids]
+  owners      = var.f5_owner_ids
 
   filter {
     name   = "name"
