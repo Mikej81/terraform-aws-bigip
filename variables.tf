@@ -39,6 +39,12 @@ variable "vpc_public_subnet_ids" {
   default     = []
 }
 
+variable "f5_owner_ids" {
+  description = "F5 owner ID"
+  type        = list
+  default     = ["679593333241", "345084742485"]
+}
+
 variable "vpc_private_subnet_ids" {
   description = "AWS VPC Subnet id for the private subnet"
   type        = list
