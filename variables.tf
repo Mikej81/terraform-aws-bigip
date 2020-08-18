@@ -10,6 +10,12 @@ variable "f5_ami_search_name" {
   default     = "F5 BIGIP-14.1.2.6* PAYG - Best 200Mbps*"
 }
 
+variable "f5_owner_ids" {
+  description = "F5 owner ID"
+  type        = list(string)
+  default     = ["679593333241", "345084742485", "self", "aws-marketplace"]
+}
+
 variable "ec2_instance_type" {
   description = "AWS EC2 instance type"
   type        = string
